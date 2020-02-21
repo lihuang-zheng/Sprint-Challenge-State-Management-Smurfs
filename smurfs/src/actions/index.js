@@ -4,6 +4,7 @@ import axios from "axios"
 export const GET_SMURF_DATA = "GET_SMURF_DATA"
 export const POST_SMURF = "POST_SMURF"
 export const REMOVE_SMURF = "REMOVE_SMURF"
+export const ADD_NUMBER = 'ADD_NUMBER'
 
 // get smurf data from server with axios
 export const getSmurfData = () => dispatch => {
@@ -51,4 +52,12 @@ export const removeSmurf = id => dispatch => {
         .catch(err => {
             console.log(err)
         })
+}
+
+// add number for id
+export const addNumber = id => {
+    return {
+        type: ADD_NUMBER,
+        payload: id
+    }
 }

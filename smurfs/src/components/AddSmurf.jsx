@@ -1,24 +1,92 @@
-import React from "react"
+import React, { useState } from "react"
 
-const Smurfs = props => {
+// import connect to the store
+import { connect } from "react-redux"
+
+// import post smurf to add smurf
+import { postSmurf, addNumber } from "../actions"
+
+
+const AddSmurf = props => {
+    const [name, setName] = useState()
+    const [height, setHeight] = useState()
+    const [age, setAge] = useState()
+    const [newID, setNewID] = useState(props.number)
+
+    let newNumber = (Number(newID) + 1).toString()
+
+    const handleName = e => {
+        setName(e.target.value)
+    }
+    const handleHeight = e => {
+        setHeight(e.target.value)
+    }
+    const handleAge = e => {
+        setAge(e.target.value)
+    }
     const handleClick = () => {
-        props.remove(smurf.id)
+        props.postSmurf({
+            name: name,
+            height: height,
+            age: age,
+            id: newID
+        })
+
+        setName("")
+        setHeight("")
+        setAge("")
+
+        props.addNumber(newNumber)
+        setNewID(newNumber)
+
+        console.log(newID)
     }
 
     return (
-        <div className="smurfs-container">
-            {props.smurfs.map(smurf =>
-                <div key={smurf.id}>
-                    <div className="smurfs">
-                        <p>{smurf.name}</p>
-                        <p>Height of {smurf.height}</p>
-                        <p>Age of {smurf.age}</p>
-                    </div>
-                    <button onClick={handleClick}>delete</button>
-                </div>
-            )}
+        <div className="form">
+            <h3>Here you can add smurfs</h3>
+
+            <input
+                className="input"
+                type="text"
+                name="newName"
+                placeholder="Name"
+                value={name}
+                onChange={handleName}
+            />
+
+            <input
+                className="input"
+                type="text"
+                name="newHeight"
+                placeholder="height (cm)"
+                value={height}
+                onChange={handleHeight}
+            />
+
+            <input
+                className="input"
+                type="text"
+                name="newAge"
+                placeholder="age (years)"
+                value={age}
+                onChange={handleAge}
+            />
+
+            <button onClick={handleClick}>
+                Add Smurf
+            </button>
         </div>
     )
 }
 
-export default Smurfs
+const mapStateToProps = state => {
+    return {
+        smurfs: state.smurfs
+    }
+}
+
+export default connect(
+    mapStateToProps,
+    { postSmurf, addNumber }
+)(AddSmurf)

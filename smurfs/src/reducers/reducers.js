@@ -1,5 +1,5 @@
 // import actions
-import { GET_SMURF_DATA, POST_SMURF, REMOVE_SMURF } from "../actions"
+import { GET_SMURF_DATA, POST_SMURF, REMOVE_SMURF, ADD_NUMBER } from "../actions"
 
 // initial
 const initialState = {
@@ -37,6 +37,12 @@ const reducer = (state = initialState, action) => {
                 smurfs: state.smurfs.filter(smurfs =>
                     smurfs.id !== action.payload
                 )
+            }
+
+        case ADD_NUMBER:
+            return {
+                ...state,
+                number: action.payload
             }
 
         default:
