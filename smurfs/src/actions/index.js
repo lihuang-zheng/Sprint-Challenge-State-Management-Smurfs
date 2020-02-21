@@ -42,7 +42,7 @@ export const postSmurf = item => dispatch => {
 // remove a smurf from the server with axios
 export const removeSmurf = id => dispatch => {
     axios
-        .delete("http://localhost:3333/smurfs/${id}")
+        .delete(`http://localhost:3333/smurfs/${id}`)
         .then(console.log(id))
         .then(dispatch({
             type: REMOVE_SMURF,
